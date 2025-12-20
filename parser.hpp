@@ -11,7 +11,7 @@ public:
     static void parse(const std::string& query){
         Tokenizer tokenizer(query);
         auto select = tokenizer.get_next_token();
-        DEBUG_BREAK();
+        debugger;
         auto star = tokenizer.get_next_token();
         auto from = tokenizer.get_next_token();
         auto users = tokenizer.get_next_token();

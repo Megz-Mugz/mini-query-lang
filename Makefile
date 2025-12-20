@@ -6,7 +6,7 @@ SRC = main.cpp
 
 .PHONY: all run debug clean
 
-all: run
+all: clean run
 
 $(TARGET):
 	$(CXX) $(BASE_FLAGS) -o $(TARGET) $(SRC)
@@ -14,7 +14,7 @@ $(TARGET):
 run: $(TARGET)
 	./$(TARGET)
 
-debug:
+debug: clean
 	$(CXX) $(BASE_FLAGS) $(DEBUG_FLAGS) -o $(TARGET) $(SRC)
 	lldb ./$(TARGET)
 

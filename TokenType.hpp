@@ -13,7 +13,7 @@ enum class TokenType {
     EOL
 };
 
-const std::unordered_map<std::string, TokenType> keywords  = {
+const std::unordered_map<std::string, TokenType> keywords = {
     {"select", TokenType::SELECT}, 
     {"from", TokenType::FROM}, 
     {"where", TokenType::WHERE}, 
