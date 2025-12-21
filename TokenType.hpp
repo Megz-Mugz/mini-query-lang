@@ -4,6 +4,7 @@
 #include <unordered_map>
 
 enum class TokenType {
+    CREATE,
     SELECT, 
     FROM, 
     WHERE, 
@@ -13,6 +14,7 @@ enum class TokenType {
     SET,
     DELETE, 
     DROP,
+    TABLE,
     IDENTIFIER, 
     PLUS,           // +
     MINUS,          // -
@@ -28,6 +30,7 @@ enum class TokenType {
 };
 
 const std::unordered_map<std::string, TokenType> keywords = {
+    {"create", TokenType::CREATE},
     {"select", TokenType::SELECT}, 
     {"from", TokenType::FROM}, 
     {"where", TokenType::WHERE}, 
@@ -36,7 +39,8 @@ const std::unordered_map<std::string, TokenType> keywords = {
     {"values", TokenType::VALUES}, 
     {"set", TokenType::SET}, 
     {"delete", TokenType::DELETE}, 
-    {"drop", TokenType::DROP}, 
+    {"drop", TokenType::TABLE}, 
+    {"table", TokenType::DROP}, 
     {"*", TokenType::STAR},
     {";", TokenType::EOL},
     {"<", TokenType::LT},
@@ -52,6 +56,7 @@ const std::unordered_map<std::string, TokenType> keywords = {
 
 inline std::ostream& operator<<(std::ostream& os, TokenType type) {
     switch (type) {
+        case TokenType::CREATE:     return os << "CREATE";
         case TokenType::SELECT:     return os << "SELECT";
         case TokenType::FROM:       return os << "FROM";
         case TokenType::WHERE:      return os << "WHERE";
@@ -61,6 +66,7 @@ inline std::ostream& operator<<(std::ostream& os, TokenType type) {
         case TokenType::SET:        return os << "SET";
         case TokenType::DELETE:     return os << "DELETE";
         case TokenType::DROP:       return os << "DROP";
+        case TokenType::TABLE:      return os << "TABLE";
         case TokenType::IDENTIFIER: return os << "IDENTIFIER";
 
         case TokenType::PLUS:       return os << "PLUS";
