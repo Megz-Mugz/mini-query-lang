@@ -7,13 +7,17 @@ class Parser
 
 {
 
+    public:
+    
     using TokenStream = std::vector<Tokenizer::Token>;
-
-public:
-
-    static const TokenStream& get_tokens(){
+    
+    static const TokenStream& get_tokens(Tokenizer::Query user_query){
+        Parser::parse(user_query);
         return tokens;
     }
+
+private:
+    inline static TokenStream tokens;
 
     static TokenStream parse(const Tokenizer::Query& query){
         
@@ -28,7 +32,7 @@ public:
             
             case (TokenType::SELECT):
                 
-                debugger;
+                // debugger;
                 
                 while (true){
                     next_token = tokenizer.get_next_token();
@@ -52,9 +56,5 @@ public:
         std::cout << "finished tokenizing" << std::endl;
         return tokens;
     }
-
-
-private:
-    inline static TokenStream tokens;
 
 };

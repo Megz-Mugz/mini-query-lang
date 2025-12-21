@@ -27,18 +27,18 @@ public:
             
 
             while (curr_char_is_space()){
-                debugger; 
+                // debugger; 
                 cursor += 1;
             }
 
             if (curr_char_is_eol()){ 
-                debugger; 
+                // debugger; 
                 return {";", TokenType::EOL}; 
             };
 
             // one character look ahead for space or EOL
             if (next_char_is_space() || next_char_is_eol()){
-                debugger;
+                // debugger;
                 return build_token(new_token);
             } 
             
@@ -81,7 +81,7 @@ private:
         new_token.erase();
 
         auto it = keywords.find(completed_token);
-        debugger;
+        // debugger;
         if (it != keywords.end()){
             return {completed_token, it->second};
         } else {
