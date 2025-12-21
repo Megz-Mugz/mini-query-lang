@@ -8,8 +8,22 @@ enum class TokenType {
     FROM, 
     WHERE, 
     INSERT, 
+    VALUES,
     UPDATE, 
+    SET,
+    DELETE, 
+    DROP,
     IDENTIFIER, 
+    PLUS,           // +
+    MINUS,          // -
+    STAR,           // *
+    SLASH,          // /
+    LT,             // <
+    LE,             // <= 
+    GT,             // >
+    GE,             // >=
+    EQ,             // = 
+    NE,             // != 
     EOL
 };
 
@@ -19,6 +33,17 @@ const std::unordered_map<std::string, TokenType> keywords = {
     {"where", TokenType::WHERE}, 
     {"insert", TokenType::INSERT}, 
     {"update", TokenType::UPDATE}, 
-    {";", TokenType::EOL}
+    {"values", TokenType::VALUES}, 
+    {"set", TokenType::SET}, 
+    {"delete", TokenType::DELETE}, 
+    {"drop", TokenType::DROP}, 
+    {"*", TokenType::STAR},
+    {";", TokenType::EOL},
+    {"<", TokenType::LT},
+    {"<=", TokenType::LE},
+    {">", TokenType::GT},
+    {">=", TokenType::GE},
+    {"=", TokenType::EQ},
+    {"!=", TokenType::NE},
 };
 

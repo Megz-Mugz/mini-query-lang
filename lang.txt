@@ -1,0 +1,41 @@
+This query language will support CRUD operations and 
+implementation of the following keywords & operators:
+
+-------------------------Operators------------------------------------
+= != < <= > >= 
+
+
+------------------------------READ Keywords-------------------------------
+select
+from
+where
+
+examples include:
+
+select * from users;
+select name from users where age >= 18;
+
+also be able to handle:
+select name from users where age >= 10 + 5 + 3;
+
+above example still adds up to 18, and is a valid SQL command
+
+------------------------------CREATE & UPDATE Keywords-------------------------------
+insert
+values
+
+update
+set
+
+------------------------------Delete Keywords-------------------------------
+
+delete
+drop table
+
+
+------------------------------Next Steps-------------------------------
+
+Phase II of this project will be to implement more complex things 
+like nested queries, group by, joins, aggregate functions, having, 
+and moving DB from memory to being on disk & leverage B/B+ trees, but
+this is for way down the line
