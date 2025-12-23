@@ -4,20 +4,19 @@
 #include "debug.hpp"  
 #include "Tokenizer.hpp"
 
-
 int main(){
+    Tokenizer::Query user_query = "select * from users";
+    Parser sql_parser;
     
-    Tokenizer::Query user_query = "drop table users";
-
-    Parser::TokenStream tokens = Parser::get_tokens(user_query);
-
     debugger;
-    // std::cout << "successfully parsed" << std::endl;
+    
+    // does all the heavy lifting
+    sql_parser.parse_tokens(user_query);
 
-    std::cout << "Query: " << user_query << std::endl;
+    Parser::TokenStream tokens = sql_parser.get_tokens();
 
+    // print out tokens for debugging purposes
     for (const auto& tok : tokens){
-        debugger;
         std::cout << '(' << tok.first << ", " << tok.second  << ')' << std::endl;
     }
 
