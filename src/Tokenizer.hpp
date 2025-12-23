@@ -40,9 +40,14 @@ public:
             auto single_letter_lookup = single_words.find(current_letter);
 
             if (single_letter_lookup != single_words.end()){
-                debugger;
+                // debugger;
                 auto token_type = determine_token_type();
+                
+                if (token_type == TokenType::QUOTE){
+                    return handle_string_literal();
+                }
                 cursor++;
+                
                 return {std::string(1, current_letter), token_type};
             }
 
@@ -152,6 +157,21 @@ private:
             default:
                 throw std::runtime_error("Unknown single-character token");
         }
+    }
+
+
+    Token handle_string_literal(){
+        
+        debugger;
+        size_t starting_point = cursor;
+        cursor++;
+
+        while (_query[cursor] != '\''){
+            cursor++;
+        }
+        cursor++;
+        return {_query.substr(starting_point, cursor - starting_point), TokenType::STRING};
+        
     }
 
 };

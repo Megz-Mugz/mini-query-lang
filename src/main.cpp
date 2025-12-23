@@ -5,7 +5,7 @@
 #include "Tokenizer.hpp"
 
 int main(){
-    Tokenizer::Query user_query = "delete from users where id>10;";
+    Tokenizer::Query user_query = "select * from users where name = 'rohan';";
     Parser sql_parser;
     
     // does all the heavy lifting
