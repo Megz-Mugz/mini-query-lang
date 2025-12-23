@@ -9,6 +9,7 @@ enum class TokenType {
     FROM, 
     WHERE, 
     INSERT, 
+    INTO,
     VALUES,
     UPDATE, 
     SET,
@@ -16,17 +17,17 @@ enum class TokenType {
     DROP,
     TABLE,
     IDENTIFIER, 
-    PLUS,           // +
-    MINUS,          // -
-    STAR,           // *
-    SLASH,          // /
-    LT,             // <
-    LE,             // <= 
-    GT,             // >
-    GE,             // >=
-    EQ,             // = 
-    NE,             // != 
-    EOL
+    NUMBER,
+    PLUS,               // +
+    MINUS,              // -
+    STAR,               // *
+    SLASH,              // /
+    LESS,               // <
+    GREATER,            // >
+    EQUAL,              // = 
+    NOT,                // !
+    COMMA,              // ,
+    EOL                 // ;
 };
 
 const std::unordered_map<std::string, TokenType> keywords = {
@@ -35,6 +36,7 @@ const std::unordered_map<std::string, TokenType> keywords = {
     {"from", TokenType::FROM}, 
     {"where", TokenType::WHERE}, 
     {"insert", TokenType::INSERT}, 
+    {"into", TokenType::INTO}, 
     {"update", TokenType::UPDATE}, 
     {"values", TokenType::VALUES}, 
     {"set", TokenType::SET}, 
@@ -43,12 +45,10 @@ const std::unordered_map<std::string, TokenType> keywords = {
     {"table", TokenType::DROP}, 
     {"*", TokenType::STAR},
     {";", TokenType::EOL},
-    {"<", TokenType::LT},
-    {"<=", TokenType::LE},
-    {">", TokenType::GT},
-    {">=", TokenType::GE},
-    {"=", TokenType::EQ},
-    {"!=", TokenType::NE},
+    {"<", TokenType::LESS},
+    {">", TokenType::GREATER},
+    {"=", TokenType::EQUAL},
+    {"!", TokenType::NOT},
 };
 
 
@@ -61,25 +61,26 @@ inline std::ostream& operator<<(std::ostream& os, TokenType type) {
         case TokenType::FROM:       return os << "FROM";
         case TokenType::WHERE:      return os << "WHERE";
         case TokenType::INSERT:     return os << "INSERT";
+        case TokenType::INTO:       return os << "INTO";
         case TokenType::VALUES:     return os << "VALUES";
         case TokenType::UPDATE:     return os << "UPDATE";
         case TokenType::SET:        return os << "SET";
         case TokenType::DELETE:     return os << "DELETE";
         case TokenType::DROP:       return os << "DROP";
         case TokenType::TABLE:      return os << "TABLE";
+
         case TokenType::IDENTIFIER: return os << "IDENTIFIER";
+        case TokenType::NUMBER:     return os << "NUMBER";
 
         case TokenType::PLUS:       return os << "PLUS";
         case TokenType::MINUS:      return os << "MINUS";
         case TokenType::STAR:       return os << "STAR";
         case TokenType::SLASH:      return os << "SLASH";
-
-        case TokenType::LT:         return os << "LT";
-        case TokenType::LE:         return os << "LE";
-        case TokenType::GT:         return os << "GT";
-        case TokenType::GE:         return os << "GE";
-        case TokenType::EQ:         return os << "EQ";
-        case TokenType::NE:         return os << "NE";
+        case TokenType::LESS:       return os << "LESS";
+        case TokenType::GREATER:    return os << "GREATER";
+        case TokenType::EQUAL:      return os << "EQUAL";
+        case TokenType::NOT:        return os << "NOT";
+        case TokenType::COMMA:      return os << "COMMA";
 
         case TokenType::EOL:        return os << "EOL";
     }

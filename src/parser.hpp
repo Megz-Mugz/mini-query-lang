@@ -22,8 +22,8 @@ public:
         // the AST will be used used for semantic analysis
 
         tokenize_string(query);
-        build_ast();
-        semantic_analysis();
+        // build_ast();
+        // semantic_analysis();
         return semantic_validity;
     }
 
@@ -48,6 +48,7 @@ private:
         Tokenizer::Token next_token;
 
         while (true){
+            // debugger;
             next_token = tokenizer.get_next_token();
             tokens.push_back(next_token);
 

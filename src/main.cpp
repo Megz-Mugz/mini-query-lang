@@ -5,13 +5,15 @@
 #include "Tokenizer.hpp"
 
 int main(){
-    Tokenizer::Query user_query = "select * from users";
+    Tokenizer::Query user_query = "select name, dob, active_status from u1sers where id = 11;";
     Parser sql_parser;
     
-    debugger;
-    
     // does all the heavy lifting
-    sql_parser.parse_tokens(user_query);
+    bool success = sql_parser.parse_tokens(user_query);
+
+    if (success){
+        std::cout << "parsed successfully" << std::endl;
+    }
 
     Parser::TokenStream tokens = sql_parser.get_tokens();
 
