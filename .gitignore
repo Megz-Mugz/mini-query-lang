@@ -1,0 +1,46 @@
+# =========================
+# macOS
+# =========================
+.DS_Store
+*.dSYM/
+*.dSYM.zip
+
+# =========================
+# Build directories
+# =========================
+build/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+Makefile
+cmake_install.cmake
+compile_commands.json
+
+# =========================
+# Executables
+# =========================
+main
+tokenizer_tests
+parser_tests
+*.out
+*.exe
+
+# =========================
+# Object / intermediate files
+# =========================
+*.o
+*.obj
+*.a
+*.so
+*.dylib
+
+# =========================
+# GoogleTest / FetchContent
+# =========================
+_deps/
+
+# =========================
+# Debug / temp
+# =========================
+*.log
+*.tmp
