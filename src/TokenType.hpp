@@ -27,6 +27,7 @@ enum class TokenType {
     EQUAL,              // = 
     NOT,                // !
     COMMA,              // ,
+    QUOTE,              // '
     EOL                 // ;
 };
 
@@ -81,6 +82,7 @@ inline std::ostream& operator<<(std::ostream& os, TokenType type) {
         case TokenType::EQUAL:      return os << "EQUAL";
         case TokenType::NOT:        return os << "NOT";
         case TokenType::COMMA:      return os << "COMMA";
+        case TokenType::QUOTE:      return os << "SINGLE QUOTE";
 
         case TokenType::EOL:        return os << "EOL";
     }

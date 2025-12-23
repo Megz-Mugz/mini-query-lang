@@ -114,6 +114,7 @@ private:
         '=',
         '!',
         ',',
+        '\'',
         ';'
     };
 
@@ -150,6 +151,9 @@ private:
 
             case ';':
                 return TokenType::EOL;
+            
+            case '\'': 
+                return TokenType::QUOTE;
 
             default:
                 throw std::runtime_error("Unknown single-character token");

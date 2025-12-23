@@ -5,7 +5,7 @@
 #include "Tokenizer.hpp"
 
 int main(){
-    Tokenizer::Query user_query = "select name, dob, active_status from u1sers where id = 11;";
+    Tokenizer::Query user_query = "select name, dob, active_status from u1sers where name = 'thomas';";
     Parser sql_parser;
     
     // does all the heavy lifting
