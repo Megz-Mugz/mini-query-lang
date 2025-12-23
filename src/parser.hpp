@@ -21,9 +21,12 @@ public:
         // TODO this will build out the AST
         // the AST will be used used for semantic analysis
 
+        // 1. characters -> tokens
         tokenize_string(query);
-        // build_ast();
-        // semantic_analysis();
+        // 2. token -> parse tree 
+        build_ast();
+        // 3. parse tree -> ??
+        semantic_analysis();
         return semantic_validity;
     }
 

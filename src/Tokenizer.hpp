@@ -53,7 +53,7 @@ public:
 
             // handle numbers
             if (std::isdigit(current_letter)){
-                uint16_t start = cursor;
+                size_t start = cursor;
 
                 while (start < _query.size() && std::isdigit(_query[start])){
                     start++;
