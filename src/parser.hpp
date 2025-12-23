@@ -26,7 +26,7 @@ public:
         // 2. token -> parse tree 
         build_ast();
         // 3. parse tree -> ??
-        semantic_analysis();
+        // semantic_analysis();
         return semantic_validity;
     }
 
@@ -51,7 +51,6 @@ private:
         Tokenizer::Token next_token;
 
         while (true){
-            // debugger;
             next_token = tokenizer.get_next_token();
             
             tokens.push_back(next_token);
