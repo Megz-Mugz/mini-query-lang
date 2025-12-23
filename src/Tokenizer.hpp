@@ -46,6 +46,18 @@ public:
                 if (token_type == TokenType::QUOTE){
                     return handle_string_literal();
                 }
+
+                if (token_type == TokenType::GREATER && _query[cursor+1] == '='){
+                    cursor += 2;
+                    return {">=", TokenType::GREATER_EQ};
+                }
+
+                if (token_type == TokenType::LESS && _query[cursor+1] == '='){
+                    cursor += 2;
+                    return {"<=", TokenType::LESS_EQ};
+                }
+
+
                 cursor++;
                 
                 return {std::string(1, current_letter), token_type};
@@ -84,7 +96,11 @@ public:
 
                 Word word = _query.substr(start, cursor - start);
 
-                auto it = keywords.find(word);
+                std::string lowered = word;
+                std::transform(lowered.begin(), lowered.end(), lowered.begin(),
+                            [](unsigned char c){ return std::tolower(c); });
+
+                auto it = keywords.find(lowered);
                 if (it != keywords.end()) {
                     return { word, it->second };
                 }

@@ -24,7 +24,9 @@ enum class TokenType {
     STAR,               // *
     SLASH,              // /
     LESS,               // <
+    LESS_EQ,            // >=
     GREATER,            // >
+    GREATER_EQ,         // >=
     EQUAL,              // = 
     NOT,                // !
     COMMA,              // ,
@@ -81,6 +83,8 @@ inline std::ostream& operator<<(std::ostream& os, TokenType type) {
         case TokenType::SLASH:      return os << "SLASH";
         case TokenType::LESS:       return os << "LESS";
         case TokenType::GREATER:    return os << "GREATER";
+        case TokenType::GREATER_EQ: return os << "GREATER_EQ";
+        case TokenType::LESS_EQ:    return os << "LESS_EQ";
         case TokenType::EQUAL:      return os << "EQUAL";
         case TokenType::NOT:        return os << "NOT";
         case TokenType::COMMA:      return os << "COMMA";
