@@ -55,7 +55,7 @@ public:
                 }
                 
                 size_t old_cursor_val = cursor;
-                cursor = start + 1;
+                cursor = start;
 
                 return {
                     _query.substr(old_cursor_val, start - old_cursor_val),
@@ -67,30 +67,24 @@ public:
             // Note: userswhereid... should be tokenizable, but not parsable (it's too ambigious)
             // leverage alphaNum
 
-            // TODO figure out why it's not parsing users
-            if (std::isalpha(static_cast<unsigned char>(_query[cursor]))) {
-                
-                uint16_t start = cursor;
-                Word current_word;
+            // handle keywords & identifiers (LONGEST MATCH)
+            if (std::isalpha(static_cast<unsigned char>(_query[cursor])) || _query[cursor] == '_') {
 
-                while (start < _query.size() && (std::isalnum(static_cast<unsigned char>(_query[start])) ||
-                                                                 _query[start] == '_')){
-                    
-                    debugger;
-                    current_word = _query.substr(cursor, start+1 - cursor);
-                    auto it = keywords.find(current_word);
-                    
-                    if (it != keywords.end()){
-                        cursor = start + 1;
-                        return {current_word, it->second};
-                    }
-                    
-                    start++;
+                size_t start = cursor;
+                
+                // longest match possible 
+                while (cursor < _query.size() && (std::isalnum(static_cast<unsigned char>(_query[cursor])) || _query[cursor] == '_')) {
+                    cursor++;
                 }
 
-                // current_word += _query[start];
-                cursor = start;
-                return {current_word, TokenType::IDENTIFIER};
+                Word word = _query.substr(start, cursor - start);
+
+                auto it = keywords.find(word);
+                if (it != keywords.end()) {
+                    return { word, it->second };
+                }
+
+                return { word, TokenType::IDENTIFIER };
             }
 
         }

@@ -50,9 +50,11 @@ private:
         while (true){
             // debugger;
             next_token = tokenizer.get_next_token();
+            
             tokens.push_back(next_token);
-
+            
             if (next_token.second == TokenType::EOL){break;}
+            
         }
     }
 
