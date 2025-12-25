@@ -46,7 +46,7 @@ TEST_F(TokenizerTest, MixedArithmeticExpression) {
 
     auto tokens = sql_parser.get_tokens();
 
-    ASSERT_GE(tokens.size(), 17); // sanity check
+    ASSERT_GE(tokens.size(), 17);
 
     EXPECT_EQ(tokens[0],  (Tokenizer::Token{"SELECT", TokenType::SELECT}));
     EXPECT_EQ(tokens[1],  (Tokenizer::Token{"name", TokenType::IDENTIFIER}));
@@ -71,3 +71,69 @@ TEST_F(TokenizerTest, MixedArithmeticExpression) {
     EXPECT_EQ(tokens.back(), (Tokenizer::Token{";", TokenType::EOL}));
 }
 
+TEST_F(TokenizerTest, InsertIntoBasic) {
+    sql_parser.parse_tokens("INSERT INTO users VALUES (1, 2);");
+    auto tokens = sql_parser.get_tokens();
+
+    ASSERT_GE(tokens.size(), 9);
+
+    EXPECT_EQ(tokens[0], (Tokenizer::Token{"INSERT", TokenType::INSERT}));
+    EXPECT_EQ(tokens[1], (Tokenizer::Token{"INTO", TokenType::INTO}));
+    EXPECT_EQ(tokens[2], (Tokenizer::Token{"users", TokenType::IDENTIFIER}));
+    EXPECT_EQ(tokens[3], (Tokenizer::Token{"VALUES", TokenType::VALUES}));
+    EXPECT_EQ(tokens[4], (Tokenizer::Token{"(", TokenType::LPAREN}));
+    EXPECT_EQ(tokens[5], (Tokenizer::Token{"1", TokenType::NUMBER}));
+    EXPECT_EQ(tokens[6], (Tokenizer::Token{",", TokenType::COMMA}));
+    EXPECT_EQ(tokens[7], (Tokenizer::Token{"2", TokenType::NUMBER}));
+    EXPECT_EQ(tokens[8], (Tokenizer::Token{")", TokenType::RPAREN}));
+
+    EXPECT_EQ(tokens.back(), (Tokenizer::Token{";", TokenType::EOL}));
+}
+
+TEST_F(TokenizerTest, UpdateBasicSet) {
+    sql_parser.parse_tokens("UPDATE users SET age = 21;");
+    auto tokens = sql_parser.get_tokens();
+
+    ASSERT_GE(tokens.size(), 7);
+
+    EXPECT_EQ(tokens[0], (Tokenizer::Token{"UPDATE", TokenType::UPDATE}));
+    EXPECT_EQ(tokens[1], (Tokenizer::Token{"users", TokenType::IDENTIFIER}));
+    EXPECT_EQ(tokens[2], (Tokenizer::Token{"SET", TokenType::SET}));
+    EXPECT_EQ(tokens[3], (Tokenizer::Token{"age", TokenType::IDENTIFIER}));
+    EXPECT_EQ(tokens[4], (Tokenizer::Token{"=", TokenType::EQUAL}));
+    EXPECT_EQ(tokens[5], (Tokenizer::Token{"21", TokenType::NUMBER}));
+
+    EXPECT_EQ(tokens.back(), (Tokenizer::Token{";", TokenType::EOL}));
+}
+
+TEST_F(TokenizerTest, UpdateWithWhere) {
+    sql_parser.parse_tokens("UPDATE users SET age = 21 WHERE id = 5;");
+    auto tokens = sql_parser.get_tokens();
+
+    ASSERT_GE(tokens.size(), 11);
+
+    EXPECT_EQ(tokens[0], (Tokenizer::Token{"UPDATE", TokenType::UPDATE}));
+    EXPECT_EQ(tokens[1], (Tokenizer::Token{"users", TokenType::IDENTIFIER}));
+    EXPECT_EQ(tokens[2], (Tokenizer::Token{"SET", TokenType::SET}));
+    EXPECT_EQ(tokens[3], (Tokenizer::Token{"age", TokenType::IDENTIFIER}));
+    EXPECT_EQ(tokens[4], (Tokenizer::Token{"=", TokenType::EQUAL}));
+    EXPECT_EQ(tokens[5], (Tokenizer::Token{"21", TokenType::NUMBER}));
+    EXPECT_EQ(tokens[6], (Tokenizer::Token{"WHERE", TokenType::WHERE}));
+    EXPECT_EQ(tokens[7], (Tokenizer::Token{"id", TokenType::IDENTIFIER}));
+    EXPECT_EQ(tokens[8], (Tokenizer::Token{"=", TokenType::EQUAL}));
+    EXPECT_EQ(tokens[9], (Tokenizer::Token{"5", TokenType::NUMBER}));
+
+    EXPECT_EQ(tokens.back(), (Tokenizer::Token{";", TokenType::EOL}));
+}
+
+TEST_F(TokenizerTest, DropTable) {
+    sql_parser.parse_tokens("DROP TABLE users;");
+    auto tokens = sql_parser.get_tokens();
+
+    ASSERT_EQ(tokens.size(), 4);
+
+    EXPECT_EQ(tokens[0], (Tokenizer::Token{"DROP", TokenType::DROP}));
+    EXPECT_EQ(tokens[1], (Tokenizer::Token{"TABLE", TokenType::TABLE}));
+    EXPECT_EQ(tokens[2], (Tokenizer::Token{"users", TokenType::IDENTIFIER}));
+    EXPECT_EQ(tokens[3], (Tokenizer::Token{";", TokenType::EOL}));
+}

@@ -59,6 +59,8 @@ private:
         '!',
         ',',
         '\'',
+        '(', 
+        ')',
         ';'
     };
 
@@ -98,6 +100,12 @@ private:
             
             case '\'': 
                 return TokenType::QUOTE;
+            
+            case '(':
+                return TokenType::LPAREN;
+            
+            case ')':
+                return TokenType::RPAREN;
 
             default:
                 throw std::runtime_error("Unknown single-character token");
@@ -105,6 +113,7 @@ private:
     }
 
     Token handle_string_literal() {
+        debugger;
         // skipping opening quote
         cursor++;
         size_t start = cursor;
@@ -142,6 +151,7 @@ private:
         auto token_type = determine_token_type();
 
         if (token_type == TokenType::QUOTE) {
+            debugger;
             return handle_string_literal();
         }
 

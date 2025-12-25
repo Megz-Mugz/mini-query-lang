@@ -5,7 +5,7 @@
 #include "Tokenizer.hpp"
 
 int main(){
-    Tokenizer::Query user_query = "SELECT name, age, dob, from customers where age >= 1 * 5 / 3 + 1000;";
+    Tokenizer::Query user_query = "INSERT INTO Customers VALUES ('Cardinal', 'Tom B. Erichsen');";
     Parser sql_parser;
     
     // does all the heavy lifting

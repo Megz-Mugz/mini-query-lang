@@ -31,6 +31,8 @@ enum class TokenType {
     NOT,                // !
     COMMA,              // ,
     QUOTE,              // '
+    LPAREN,             // (
+    RPAREN,             // )
     EOL                 // ;
 };
 
@@ -52,6 +54,8 @@ const std::unordered_map<std::string, TokenType> keywords = {
     {"<", TokenType::LESS},
     {">", TokenType::GREATER},
     {"=", TokenType::EQUAL},
+    {"(", TokenType::LPAREN},
+    {")", TokenType::RPAREN},
     {"!", TokenType::NOT},
 };
 
@@ -89,6 +93,9 @@ inline std::ostream& operator<<(std::ostream& os, TokenType type) {
         case TokenType::NOT:        return os << "NOT";
         case TokenType::COMMA:      return os << "COMMA";
         case TokenType::QUOTE:      return os << "SINGLE QUOTE";
+
+        case TokenType::LPAREN:      return os << "LEFT PAREN";
+        case TokenType::RPAREN:      return os << "RIGHT PAREN";
 
         case TokenType::EOL:        return os << "EOL";
     }
