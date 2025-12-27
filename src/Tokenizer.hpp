@@ -185,12 +185,7 @@ private:
                 (std::isdigit(static_cast<unsigned char>(_query[start])) ||
                 _query[start] == '.')) {
                     
-                if (_query[start] == '.') {
-                    if (seen_dot) {
-                        throw std::runtime_error("Invalid floating point number");
-                    }
-                    seen_dot = true;
-                }
+                validate_number(start, seen_dot);
                 start++;
             }
             
@@ -230,5 +225,14 @@ private:
         }
 
         return std::nullopt;
+    }
+
+    void validate_number(const int start, bool& seen_dot){
+        if (_query[start] == '.') {
+            if (seen_dot) {
+                    throw std::runtime_error("Invalid floating point number");
+                }
+                seen_dot = true;
+            }
     }
 };

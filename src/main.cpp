@@ -5,7 +5,7 @@
 #include "Tokenizer.hpp"
 
 int main(){
-    Tokenizer::Query user_query = "INSERT INTO Customers VALUES ('Cardinal', 19191.19191001.1191);";
+    Tokenizer::Query user_query = "INSERT INTO Customers VALUES ('Cardinal', 19.91);";
     Parser sql_parser;
     
     // does all the heavy lifting
