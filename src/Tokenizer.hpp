@@ -113,7 +113,6 @@ private:
     }
 
     Token handle_string_literal() {
-        debugger;
         // skipping opening quote
         cursor++;
         size_t start = cursor;
@@ -151,7 +150,6 @@ private:
         auto token_type = determine_token_type();
 
         if (token_type == TokenType::QUOTE) {
-            debugger;
             return handle_string_literal();
         }
 
@@ -176,11 +174,23 @@ private:
     }
 
     MaybeToken try_number(){
-        
-        if (std::isdigit(_query[cursor])){
+        bool seen_dot = false;
+
+        if (std::isdigit(_query[cursor]) || _query[cursor] == '.'){
+            debugger;
+            if (_query[cursor] == '.') seen_dot = true;
             size_t start = cursor;
 
-            while (start < _query.size() && std::isdigit(static_cast<unsigned char>(_query[start]))){
+            while (start < _query.size() &&
+                (std::isdigit(static_cast<unsigned char>(_query[start])) ||
+                _query[start] == '.')) {
+                    
+                if (_query[start] == '.') {
+                    if (seen_dot) {
+                        throw std::runtime_error("Invalid floating point number");
+                    }
+                    seen_dot = true;
+                }
                 start++;
             }
             
@@ -189,7 +199,7 @@ private:
 
             return Token{
                 _query.substr(old_cursor_val, start - old_cursor_val),
-                TokenType::NUMBER
+                (seen_dot) ? TokenType::FLOAT : TokenType::NUMBER
             };
         }
 
@@ -198,7 +208,6 @@ private:
 
     MaybeToken try_identifier(){
         if (std::isalpha(static_cast<unsigned char>(_query[cursor])) || _query[cursor] == '_') {
-
             size_t start = cursor;
             
             // longest match possible 

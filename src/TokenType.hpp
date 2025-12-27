@@ -18,6 +18,7 @@ enum class TokenType {
     TABLE,
     IDENTIFIER, 
     NUMBER,
+    FLOAT,
     STRING,             
     PLUS,               // +
     MINUS,              // -
@@ -79,6 +80,7 @@ inline std::ostream& operator<<(std::ostream& os, TokenType type) {
 
         case TokenType::IDENTIFIER: return os << "IDENTIFIER";
         case TokenType::NUMBER:     return os << "NUMBER";
+        case TokenType::FLOAT:     return os << "FLOAT";
         case TokenType::STRING:     return os << "STRING";
 
         case TokenType::PLUS:       return os << "PLUS";
