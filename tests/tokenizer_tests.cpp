@@ -137,3 +137,40 @@ TEST_F(TokenizerTest, DropTable) {
     EXPECT_EQ(tokens[2], (Tokenizer::Token{"users", TokenType::IDENTIFIER}));
     EXPECT_EQ(tokens[3], (Tokenizer::Token{";", TokenType::EOL}));
 }
+
+TEST_F(TokenizerTest, ValidIntegerLiteral) {
+    sql_parser.parse_tokens("SELECT * FROM users WHERE id = 42;");
+    auto tokens = sql_parser.get_tokens();
+
+    ASSERT_GE(tokens.size(), 8);
+
+    EXPECT_EQ(tokens[7], (Tokenizer::Token{"42", TokenType::NUMBER}));
+}
+
+TEST_F(TokenizerTest, ValidFloatLiteral) {
+    sql_parser.parse_tokens("SELECT * FROM users WHERE score = 0.92;");
+    auto tokens = sql_parser.get_tokens();
+
+    ASSERT_GE(tokens.size(), 8);
+
+    EXPECT_EQ(tokens[7], (Tokenizer::Token{"0.92", TokenType::FLOAT}));
+}
+
+TEST_F(TokenizerTest, InvalidLeadingDotFloat) {
+
+    EXPECT_THROW(
+        sql_parser.parse_tokens(
+            "SELECT * FROM users WHERE score = .92;"
+        ),
+        std::runtime_error
+    );
+}
+
+TEST_F(TokenizerTest, InvalidFloatLiteralMultipleDots) {
+    EXPECT_THROW(
+        sql_parser.parse_tokens(
+            "SELECT * FROM users WHERE score = 1292992.1919.11991;"
+        ),
+        std::runtime_error
+    );
+}
